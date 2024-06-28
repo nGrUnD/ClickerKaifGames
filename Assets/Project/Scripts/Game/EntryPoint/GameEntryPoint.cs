@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 public class GameEntryPoint
 {
-    private const string PATH_INTERFACE = "[INTERFACE]";
+    private const string PATH_LOADSCREEN = "[LOADSCREEN]";
     private static GameEntryPoint _instance;
-    private UIRootView _interfaces;
+
+    private UILoadScreenView _loadScreen;
 
     [RuntimeInitializeOnLoadMethod]
     public static void AutoStart()
@@ -20,11 +22,11 @@ public class GameEntryPoint
         Debug.Log("Autostart");
     }
 
-    private GameEntryPoint()
+    public GameEntryPoint()
     {
-        var interfacePrefab = Resources.Load<UIRootView>(PATH_INTERFACE);
-        _interfaces = GameObject.Instantiate(interfacePrefab);
-        GameObject.DontDestroyOnLoad(_interfaces.gameObject);
+        var loadscreenPrefab = Resources.Load<UILoadScreenView>(PATH_LOADSCREEN);
+        _loadScreen = GameObject.Instantiate(loadscreenPrefab);
+        GameObject.DontDestroyOnLoad(_loadScreen.gameObject);
     }
 
     private async void Run()
@@ -34,17 +36,16 @@ public class GameEntryPoint
 
     private async UniTask StartGameplay()
     {
-        _interfaces.ActiveLoadingScreen(true);
+        _loadScreen.ActiveLoadingScreen(true);
 
         await LoadScene(Scenes.BOOTSTRAP);
         await LoadScene(Scenes.GAME);
-
         await UniTask.WaitForSeconds(2);
 
         var gameplayEntryPoint = GameObject.FindObjectOfType<GameplayEntryPoint>();
         await gameplayEntryPoint.Run();
 
-        _interfaces.ActiveLoadingScreen(false);
+        _loadScreen.ActiveLoadingScreen(false);
     }
 
     private async UniTask LoadScene(string sceneName)
