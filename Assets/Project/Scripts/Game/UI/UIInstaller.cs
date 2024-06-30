@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 using Zenject;
 
 public class UIInstaller : MonoInstaller
 {
-    private const string PATH_INTERFACE = "[INTERFACE]";
-
     public override void InstallBindings()
     {
-        Container.Bind<ScreenClickerView>().FromComponentInNewPrefabResource(PATH_INTERFACE).AsSingle();
+        var rootUIView = FindObjectOfType<UIRootView>();
+        Container.Bind<UIRootView>().FromInstance(rootUIView).AsSingle();
     }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class UIProgressBar : MonoBehaviour
@@ -17,6 +18,9 @@ public class UIProgressBar : MonoBehaviour
     public void UpdateBar(int value)
     {
         _value = value;
-        barImage.fillAmount = (float)_value / _maxValue;
+        
+        DOTween
+            .Sequence()
+            .Append(barImage.DOFillAmount((float)_value / _maxValue, 0.2f));
     }
 }

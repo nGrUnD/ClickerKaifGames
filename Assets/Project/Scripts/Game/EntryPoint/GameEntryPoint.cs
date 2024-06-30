@@ -7,15 +7,17 @@ using Zenject;
 
 public class GameEntryPoint
 {
-    private const string PATH_LOADSCREEN = "[LOADSCREEN]";
+    private const string PATH_INTERFACE = "[INTERFACE]";
     private static GameEntryPoint _instance;
 
-    private UILoadScreenView _loadScreen;
+    private UIRootView _rootUIView;
 
-    [RuntimeInitializeOnLoadMethod]
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     public static void AutoStart()
     {
+#if !UNITY_EDITOR
         Application.targetFrameRate = 60;
+#endif
 
         _instance = new();
         _instance.Run();
@@ -24,9 +26,9 @@ public class GameEntryPoint
 
     public GameEntryPoint()
     {
-        var loadscreenPrefab = Resources.Load<UILoadScreenView>(PATH_LOADSCREEN);
-        _loadScreen = GameObject.Instantiate(loadscreenPrefab);
-        GameObject.DontDestroyOnLoad(_loadScreen.gameObject);
+        var rootUIPrefab = Resources.Load<UIRootView>(PATH_INTERFACE);
+        _rootUIView = GameObject.Instantiate(rootUIPrefab);
+        GameObject.DontDestroyOnLoad(_rootUIView.gameObject);
     }
 
     private async void Run()
@@ -36,7 +38,7 @@ public class GameEntryPoint
 
     private async UniTask StartGameplay()
     {
-        _loadScreen.ActiveLoadingScreen(true);
+        _rootUIView.ActiveLoadingScreen(true);
 
         await LoadScene(Scenes.BOOTSTRAP);
         await LoadScene(Scenes.GAME);
@@ -45,7 +47,7 @@ public class GameEntryPoint
         var gameplayEntryPoint = GameObject.FindObjectOfType<GameplayEntryPoint>();
         await gameplayEntryPoint.Run();
 
-        _loadScreen.ActiveLoadingScreen(false);
+        _rootUIView.ActiveLoadingScreen(false);
     }
 
     private async UniTask LoadScene(string sceneName)

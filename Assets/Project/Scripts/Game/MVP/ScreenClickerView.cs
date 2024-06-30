@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,13 +10,14 @@ public sealed class ScreenClickerView : MonoBehaviour
 {
     public event Action OnClickEvent;
     public UIProgressBar ProgressBar => progressBar;
-    
+
     [SerializeField] private UIProgressBar progressBar;
     [SerializeField] private Button clickObjectButton;
     [SerializeField] private TextMeshProUGUI currencyText;
     [SerializeField] private TextMeshProUGUI perClickValueText;
     [SerializeField] private TextMeshProUGUI levelText;
     [SerializeField] private TextMeshProUGUI targetValueText;
+    [SerializeField] private TextMeshProUGUI clickCountText;
 
     private void Start()
     {
@@ -45,5 +47,27 @@ public sealed class ScreenClickerView : MonoBehaviour
     public void SetTargetValueText(string value)
     {
         targetValueText.text = value;
+    }
+
+    public void SetClickCountText(string value)
+    {
+        clickCountText.text = value;
+    }
+
+    public void AnimateCurrencyText()
+    {
+        DOTween
+            .Sequence()
+            .Append(currencyText.transform.DOScale(Vector3.one * 1.2f, 0.2f))
+            .Append(currencyText.transform.DOScale(Vector3.one, 0.2f));
+    }
+
+
+    public void AnimateClickCountText()
+    {
+        DOTween
+            .Sequence()
+            .Append(clickCountText.transform.DOScale(Vector3.one * 1.2f, 0.2f))
+            .Append(clickCountText.transform.DOScale(Vector3.one, 0.2f));
     }
 }

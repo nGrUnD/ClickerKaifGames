@@ -8,15 +8,17 @@ public class ClickerModel
     public int Level { get; private set; }
     public int ClicksForNextLevel { get; private set; }
     public int Power { get; private set; }
-    
+
     private readonly ClickStorage _clickStorage;
     private readonly CurrencyStorage _currencyStorage;
+    private readonly ClickPopupPool _clickPopupPool;
 
     [Inject]
-    public ClickerModel(ClickStorage clickStorage, CurrencyStorage currencyStorage)
+    public ClickerModel(ClickStorage clickStorage, CurrencyStorage currencyStorage, UIRootView rootUIView)
     {
         _clickStorage = clickStorage;
         _currencyStorage = currencyStorage;
+        _clickPopupPool = rootUIView.clickPopupPool;
 
         LoadProgress();
     }
@@ -29,6 +31,12 @@ public class ClickerModel
         {
             LevelUp();
         }
+    }
+
+    public void CreateClickPopup()
+    {
+        var clickPopup = _clickPopupPool.Get();
+        clickPopup.Initialize($"+{Power}", _clickPopupPool);
     }
 
     public void UpgradeClickPower(int value)

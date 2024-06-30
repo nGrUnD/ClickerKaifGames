@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172e0bf2587c4a2196a7bd4fa3d3a7c3, type: 3}
+  m_Name: ProductDataInstaller
+  m_EditorClassIdentifier: 
+  productData:
+    products:
+    - Name: Product 1
+      Description: "+1 \u0421\u0438\u043B\u044B \u041D\u0430\u0436\u0430\u0442\u0438\u044F"
+      Cost: 5
+      AdditionalPower: 1
+      IsPurchased: 0
+    - Name: Product 2
+      Description: "+2 \u0421\u0438\u043B\u044B \u041D\u0430\u0436\u0430\u0442\u0438\u044F"
+      Cost: 50
+      AdditionalPower: 2
+      IsPurchased: 0
+    - Name: Product 3
+      Description: "+5 \u0421\u0438\u043B\u044B \u041D\u0430\u0436\u0430\u0442\u0438\u044F"
+      Cost: 200
+      AdditionalPower: 5
+      IsPurchased: 0
+    - Name: Product 4
+      Description: "+10 \u0421\u0438\u043B\u044B \u041D\u0430\u0436\u0430\u0442\u0438\u044F"
+      Cost: 400
+      AdditionalPower: 10
+      IsPurchased: 0
+    - Name: Product 5
+      Description: "+20 \u0421\u0438\u043B\u044B \u041D\u0430\u0436\u0430\u0442\u0438\u044F"
+      Cost: 1000
+      AdditionalPower: 20
+      IsPurchased: 0

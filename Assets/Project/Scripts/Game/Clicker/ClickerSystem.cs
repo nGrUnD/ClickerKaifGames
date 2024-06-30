@@ -8,7 +8,7 @@ public class ClickerSystem : MonoInstaller
     public override void InstallBindings()
     {
         Container.Bind<ClickerModel>().AsSingle();
-        Container.Bind<ClickStorage>().FromInstance(clickStorage);       
+        Container.Bind<ClickStorage>().FromInstance(clickStorage);
         Container.Bind<ClickerPresenter>().AsSingle().NonLazy();
     }
 }
